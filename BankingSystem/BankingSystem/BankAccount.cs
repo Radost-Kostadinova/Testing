@@ -8,7 +8,7 @@ namespace BankingSystem
 {
    public class BankAccount
     { 
-        public BankAccount(int id, decimal balance)
+        public BankAccount(int id, decimal balance=0)
         {
             this.Id = id;
             this.Balance = balance;
