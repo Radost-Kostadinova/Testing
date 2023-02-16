@@ -17,7 +17,7 @@ namespace BankingSystem
         public int Id { get; set; }
         public decimal Balance { get; set; }
 
-        public void Depostit(decimal amount)
+        public void Deposit(decimal amount)
         {
             if (amount <= 0)
             {

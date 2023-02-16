@@ -3,7 +3,7 @@ using System;
 
 namespace BankingSystem.Tests
 {
-    public class Tests
+    public class BankAccountTests
     {
         [Test]
         public void DepositShouldIncreaseBalance()
@@ -14,7 +14,7 @@ namespace BankingSystem.Tests
                 decimal depositAmount = 100;
 
                 //Act
-                bankAccount.Depostit(depositAmount);
+                bankAccount.Deposit(depositAmount);
 
                 //Assert
                 Assert.AreEqual(depositAmount, bankAccount.Balance);
@@ -31,7 +31,7 @@ namespace BankingSystem.Tests
                 BankAccount bankAccount = new BankAccount(123, 200m);
 
                 //Assert
-                Assert.AreEqual(2000m, bankAccount.Balance);
+                Assert.AreEqual(200m, bankAccount.Balance);
             }
         }
 
@@ -46,7 +46,7 @@ namespace BankingSystem.Tests
                 BankAccount bankAccount = new BankAccount(123);
 
                 //Act
-                bankAccount.Depostit(depositAmount);
+                bankAccount.Deposit(depositAmount);
 
                 //Assert
                 Assert.AreEqual(depositAmount, bankAccount.Balance);
@@ -64,7 +64,7 @@ namespace BankingSystem.Tests
 
 
                 //Act and Assert
-                Assert.Throws<InvalidOperationException>(() => bankAccount.Depostit(depositAmount));
+                Assert.Throws<InvalidOperationException>(() => bankAccount.Deposit(depositAmount));
             }
         }
 
