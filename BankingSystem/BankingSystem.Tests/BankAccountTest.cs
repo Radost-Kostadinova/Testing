@@ -70,7 +70,7 @@ namespace BankingSystem.Tests
 
 
 
-           [Test]
+        [Test]
         public void NegativeAmountShouldThrowInvalidOperationExceptionsWithMessage()
         {
             {
@@ -80,6 +80,53 @@ namespace BankingSystem.Tests
                 var ex = Assert.Throws<InvalidOperationException>(() => bankAccount.Deposit(depositAmount));
                 Assert.AreEqual(ex.Message, "Negative amount");
             }
+        }
+
+        [Test]
+        public void DepositShouldIncreaseBalance2()
+        {
+            {
+                //Arange
+                int id = 123;
+                decimal amountDeposit = 2000m;
+                BankAccount bankAccount = new BankAccount(id);
+
+                //Act
+                bankAccount.Deposit(amountDeposit);
+
+                //Assert
+                Assert.AreEqual(amountDeposit, bankAccount.Balance);
+
+            }
+        }
+
+        [Test]
+        public void ConstructorShouldSetZeroBalance()
+        {
+            {
+                //Arange
+                int id = 123;
+
+                //Act
+                BankAccount account = new BankAccount(id);
+
+                //Assert
+                Assert.AreEqual(0,account.Balance);
+
+            }
+        }
+
+        [Test]
+        public void ConstructorShouldInisializeId()
+        {
+            //Arange
+            int id = 123;
+
+            //Act
+            BankAccount account = new BankAccount(id);
+
+            //Assert
+            Assert.AreEqual(id,account.Id);
         }
 
 
