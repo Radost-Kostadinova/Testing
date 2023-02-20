@@ -5,21 +5,40 @@ namespace BankingSystem.Tests
 {
     public class BankAccountTests
     {
+
         [Test]
-        public void DepositShouldIncreaseBalance()
+        public void DepositShouldIncreaseBalance1()
         {
             {
                 //Arange
-                BankAccount bankAccount = new BankAccount(123);
+                int id = 123;
+                int amount = 500;
+                BankAccount bankAccount = new BankAccount(id, amount);
                 decimal depositAmount = 100;
 
                 //Act
                 bankAccount.Deposit(depositAmount);
 
                 //Assert
-                Assert.AreEqual(depositAmount, bankAccount.Balance);
+                Assert.AreEqual(depositAmount + amount, bankAccount.Balance, "Balance should increase with possitive number");
             }
         }
+
+        [TestCase(123, 500)]
+        [TestCase(123,500.7686)]
+        [TestCase(123,0)]
+        public void ConstructorShouldSetBalanceCorrectly(int id,decimal amount)
+        {
+            {
+                //Arange and Act
+                BankAccount bankAccount = new BankAccount(id, amount);
+
+                //Assert
+                Assert.AreEqual( amount, bankAccount.Balance);
+
+            }
+        }
+
 
         [Test]
         public void AccountInicializeWhithPositiveValue()
@@ -67,6 +86,18 @@ namespace BankingSystem.Tests
                 Assert.Throws<InvalidOperationException>(() => bankAccount.Deposit(depositAmount));
             }
         }
+        [Test]
+        public void BalanceShouldThrowArgumentExcpetionWhenBalanceIsNegative()
+        {
+            {
+                //Arange
+                int id = 123;
+                decimal amount = -100.939m;
+
+                //Act and Assert
+                Assert.Throws<ArgumentException>(() => new BankAccount(id, amount));
+            }
+        }
 
 
 
@@ -74,13 +105,20 @@ namespace BankingSystem.Tests
         public void NegativeAmountShouldThrowInvalidOperationExceptionsWithMessage()
         {
             {
+                //Arange
                 BankAccount bankAccount = new BankAccount(123);
                 decimal depositAmount = -100;
 
+                //Assert and Act
                 var ex = Assert.Throws<InvalidOperationException>(() => bankAccount.Deposit(depositAmount));
                 Assert.AreEqual(ex.Message, "Negative amount");
             }
         }
+
+ 
+       
+
+
 
         [Test]
         public void DepositShouldIncreaseBalance2()
@@ -128,6 +166,23 @@ namespace BankingSystem.Tests
             //Assert
             Assert.AreEqual(id,account.Id);
         }
+
+
+
+        [Test]
+        public void BalanceShouldThrowCurrentMessageWhenAmountIsNegative()
+        {
+            {
+                int id = 123;
+                decimal amount = -100.123m;
+                string message = "Balance must be positive or zero";
+
+                var ex = Assert.Throws<ArgumentException>(() => new BankAccount(id, amount));
+                Assert.AreEqual(message, ex.Message);
+            }
+        }
+
+
 
 
     }

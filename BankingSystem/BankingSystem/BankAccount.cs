@@ -6,22 +6,35 @@ using System.Threading.Tasks;
 
 namespace BankingSystem
 {
-   public class BankAccount
-    { 
-        public BankAccount(int id, decimal balance=0)
+    public class BankAccount
+    {
+        private decimal balance;
+
+        public BankAccount(int id, decimal balance = 0)
         {
             this.Id = id;
             this.Balance = balance;
         }
 
         public int Id { get; set; }
-        public decimal Balance { get; set; }
 
-        public void Deposit(decimal amount)
+        public decimal Balance
+        {
+            get { return  balance; }
+            set {
+                  if (value < 0)
+                {
+                    throw new ArgumentException("Balance must be positive or zero");
+                }
+                this.balance = value;
+               }
+        }
+
+    public void Deposit(decimal amount)
         {
             if (amount <= 0)
             {
-                throw new InvalidOperationException("Negative amount"); 
+                throw new InvalidOperationException("Negative amount");
             }
             this.Balance += amount;
         }
