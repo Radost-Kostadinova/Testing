@@ -41,6 +41,8 @@ namespace BankingSystem
 
 
 
+
+        //4
         public void Credit(decimal cash)
         {
             if (cash <= 0)
@@ -59,6 +61,22 @@ namespace BankingSystem
             else
             {
                 this.Balance = this.Balance + this.Balance * (decimal)procent;
+            }
+        }
+
+        public void Bonus()
+        {
+            if(this.Balance>1000 && this.Balance<2000)
+            {
+                this.Balance += 100;
+            }
+            else if (this.Balance>=2000 && this.balance<=3000)
+            {
+                this.Balance += 200;
+            }
+            else if(this.Balance>3000)
+            {
+                this.Balance +=200;
             }
         }
 
