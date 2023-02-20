@@ -182,14 +182,25 @@ namespace BankingSystem.Tests
             }
         }
 
-        [TestCase(123,500)]
-        [TestCase(123,100)]
+        [TestCase(123,1500)]
+        [TestCase(123,1999.9030)]
          
         public void BonusShouldIncreaseBalanceWhenBalanceIsLessOrEqual1000(int id,decimal balance)
         {
             BankAccount bankAccount = new BankAccount(id, balance);
             bankAccount.Bonus();
             Assert.AreEqual(balance,bankAccount.Balance);
+        }
+
+        [TestCase(123, 500)]
+        [TestCase(123, 100)]
+
+        public void BonusShouldIncreaseBalanceWhenIsBetweeen100And2000(int id, decimal balance)
+        {
+            BankAccount bankAccount = new BankAccount(id, balance);
+            var expectedResult = balance + 100;
+            bankAccount.Bonus();
+            Assert.AreEqual(expectedResult, bankAccount.Balance);
         }
 
 
