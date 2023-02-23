@@ -24,17 +24,42 @@ namespace BankingSystem.Tests
             }
         }
 
+        [Test]
+        public void IncreaseShouldIncreaseBalance()
+        {
+            BankAccount account = new BankAccount(123,100);
+            account.Increase();
+            Assert.AreEqual(105,account);
+
+        }
+
+
         [TestCase(123, 500)]
-        [TestCase(123,500.7686)]
-        [TestCase(123,0)]
-        public void ConstructorShouldSetBalanceCorrectly(int id,decimal amount)
+        [TestCase(123, 500.7686)]
+        [TestCase(123, 0)]
+        public void ConstructorShouldSetBalanceCorrectly(int id, decimal balance)
+        {
+            {
+                //Arange and Act
+                BankAccount account = new BankAccount(id, balance);
+
+                //Assert
+                Assert.AreEqual(123,account.Id);
+                Assert.AreEqual(123, account.Balance);
+            }
+        }
+
+        [TestCase(123, 500)]
+        [TestCase(123, 500.7686)]
+        [TestCase(123, 0)]
+        public void ConstructorShouldSetBalanceCorrectly2(int id, decimal amount)
         {
             {
                 //Arange and Act
                 BankAccount bankAccount = new BankAccount(id, amount);
 
                 //Assert
-                Assert.AreEqual( amount, bankAccount.Balance);
+                Assert.AreEqual(amount, bankAccount.Balance);
 
             }
         }
@@ -114,7 +139,7 @@ namespace BankingSystem.Tests
                 Assert.AreEqual(ex.Message, "Negative amount");
             }
         }
-       
+
 
 
 
@@ -147,7 +172,7 @@ namespace BankingSystem.Tests
                 BankAccount account = new BankAccount(id);
 
                 //Assert
-                Assert.AreEqual(0,account.Balance);
+                Assert.AreEqual(0, account.Balance);
 
             }
         }
@@ -162,7 +187,7 @@ namespace BankingSystem.Tests
             BankAccount account = new BankAccount(id);
 
             //Assert
-            Assert.AreEqual(id,account.Id);
+            Assert.AreEqual(id, account.Id);
         }
 
 
@@ -180,14 +205,14 @@ namespace BankingSystem.Tests
             }
         }
 
-        [TestCase(123,1500)]
-        [TestCase(123,1999.9030)]
-         
-        public void BonusShouldIncreaseBalanceWhenBalanceIsLessOrEqual1000(int id,decimal balance)
+        [TestCase(123, 1500)]
+        [TestCase(123, 1999.9030)]
+
+        public void BonusShouldIncreaseBalanceWhenBalanceIsLessOrEqual1000(int id, decimal balance)
         {
             BankAccount bankAccount = new BankAccount(id, balance);
             bankAccount.Bonus();
-            Assert.AreEqual(balance,bankAccount.Balance);
+            Assert.AreEqual(balance, bankAccount.Balance);
         }
 
         [TestCase(123, 500)]
@@ -201,7 +226,15 @@ namespace BankingSystem.Tests
             Assert.AreEqual(expectedResult, bankAccount.Balance);
         }
 
+        [TestCase(234, 450)]
+        [TestCase(234, 100.3929)]
 
-
+        public void Constructor(int id, decimal balance)
+        {
+            BankAccount bankAccount = new BankAccount(id, balance);
+            var expectedResult = balance + 100;
+            bankAccount.Bonus();
+            Assert.AreEqual(expectedResult, bankAccount.Balance);
+        }
     }
 }
