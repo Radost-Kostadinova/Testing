@@ -114,8 +114,6 @@ namespace BankingSystem.Tests
                 Assert.AreEqual(ex.Message, "Negative amount");
             }
         }
-
- 
        
 
 
